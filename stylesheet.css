@@ -11,7 +11,6 @@ body {
     background-repeat: no-repeat; /* Hindrer gjentakelse */
     background-attachment: fixed; /* Gir parallax-effekt */
     min-height: 100vh;
-<<<<<<< HEAD
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -160,9 +159,6 @@ header {
     }
 }
 
-=======
-}
-
 main {
     display: flex;
     flex-direction: column;
@@ -171,4 +167,3 @@ main {
     height: 55vh;
     color: white;
 }
->>>>>>> 78b3c38ed2d9d5ff7cfd1997428b1e3013a16cd8
