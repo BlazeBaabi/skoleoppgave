@@ -157,4 +157,17 @@ header {
     .brand {
         font-size: 1.5rem;
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 55vh;
+    color: white;
+}
+>>>>>>> 65f24fadd259f30c1e2b49bedb865a2e3b526c3f
