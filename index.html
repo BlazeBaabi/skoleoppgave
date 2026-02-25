@@ -1,75 +1,157 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="no">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Skoleoppgave</title>
+  <title>A-List | Skoleoppgave</title>
   <link rel="stylesheet" href="stylesheet.css">
+  <style>
+    /* Enkel styling for innloggingsskjermen */
+    #auth-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      background: #f9f9f9;
+      color: #333;
+    }
+    #auth-container input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      border: none;
+      background: #007bff;
+      color: white;
+    }
+    #logout-btn {
+      background: #dc3545;
+      margin-left: 15px;
+    }
+    /* Skjuler hovedinnholdet som standard */
+    #main-wrapper {
+      display: none;
+    }
+    #error-msg {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
 
-  <header>
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-      <div class="nav-container">
-        <a class="brand" href="#">Skoleoppgave</a>
-        <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
-          <span class="hamburger">☰</span>
-          <span class="visually-hidden">Meny</span>
-        </button>
-        <ul id="primary-navigation" class="nav-list">
-          <li><a href="#">Hjem</a></li>
-          <li><a href="#">Om the sigma</a></li>
-          <li><a href="#">Prosjekt</a></li>
-          <li><a href="#">Kontakt</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <div id="auth-container">
+    <h2>Velkommen til A-List</h2>
+    <p>Vennligst logg inn for å se prosjektet</p>
+    <input type="email" id="email" placeholder="E-post">
+    <input type="password" id="password" placeholder="Passord">
+    <div class="auth-buttons">
+      <button id="login-btn">Logg inn</button>
+      <button id="signup-btn" style="background: #28a745;">Registrer</button>
+    </div>
+    <p id="error-msg"></p>
+  </div>
 
-  <main id="main">
-    <section>
-      <h1>Velkommen</h1>
-      <h3>sigmasigmaboi</h3>
-    </section>
-    <p>Rainbow Six Siege er et taktisk førstepersons skytespill der to lag på fem spillere møter hverandre i intense, strategiske runder.
+  <div id="main-wrapper">
+    <header>
+      <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a class="brand" href="#">A-List Prosjekt</a>
+          <ul id="primary-navigation" class="nav-list" style="display: flex; list-style: none; gap: 20px; align-items: center;">
+            <li><a href="#">Hjem</a></li>
+            <li><a href="#">Prosjekt</a></li>
+            <li><button id="logout-btn">Logg ut</button></li> 
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-Det ene laget angriper, og det andre forsvarer et mål (for eksempel en bombe eller et gissel). Spillet fokuserer sterkt på samarbeid, taktikk og bruk av unike operatører – hver med egne spesialevner og utstyr.
+    <main id="main">
+      <section>
+        <h1>Velkommen</h1>
+        <p>Du er nå logget inn på A-List systemet.</p>
+      </section>
+      
+      <article style="padding: 20px; background: #eee; border-radius: 8px; margin-top: 20px; color: #000;">
+        <h2>Rainbow Six Siege Update 2026</h2>
+        <p>Her er informasjonen om Operation Silent Hunt og Solid Snake...</p>
+        </article>
+    </main>
 
-En viktig del av spillet er ødeleggbarhet: vegger, gulv og tak kan sprenges eller brytes for å skape nye angreps- eller forsvarsveier.
+    <footer>
+      <p>&copy; 2026 thick of it gang</p>
+    </footer>
+  </div>
 
-Kort sagt: Et realistisk, lagbasert skytespill hvor planlegging og kommunikasjon er viktigere enn bare raske reflekser.</p>
-  </main>
+  <script type="module">
+    // Importer Firebase-funksjoner
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-  <footer>
-    <p>&copy; 2026 thick of it gang</p>
-  </footer>
+    // Din Firebase konfigurasjon (fra oppgaven)
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9lR8knolFTheHhIySSRbi2u_Ya_h2Gig",
+      authDomain: "loging-til-webside.firebaseapp.com",
+      projectId: "loging-til-webside",
+      storageBucket: "loging-til-webside.firebasestorage.app",
+      messagingSenderId: "326441223690",
+      appId: "1:326441223690:web:6eeeb386cff76a7493c1f3"
+    };
 
-  <script>  
-    (function () {
-      const toggle = document.querySelector('.nav-toggle');
-      const nav = document.getElementById('primary-navigation');
-      if (!toggle || !nav) return;
-      toggle.addEventListener('click', function () {
-        const expanded = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', String(!expanded));
-        if (expanded) {
-          nav.style.display = 'none';
-        } else {
-          nav.style.display = 'block';
-        }
-      });
-    })();
+    // Initialiser Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Henter referanser til HTML-elementer
+    const authContainer = document.getElementById('auth-container');
+    const mainWrapper = document.getElementById('main-wrapper');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorMsg = document.getElementById('error-msg');
+
+    // Sjekker om brukeren er logget inn eller ikke
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Hvis logget inn: Vis innhold, skjul login
+        authContainer.style.display = 'none';
+        mainWrapper.style.display = 'block';
+      } else {
+        // Hvis logget ut: Vis login, skjul innhold
+        authContainer.style.display = 'block';
+        mainWrapper.style.display = 'none';
+      }
+    });
+
+    // Logikk for registrering
+    document.getElementById('signup-btn').addEventListener('click', () => {
+      createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+        .catch(error => errorMsg.innerText = "Feil ved registrering: " + error.message);
+    });
+
+    // Logikk for innlogging
+    document.getElementById('login-btn').addEventListener('click', () => {
+      signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+        .catch(error => errorMsg.innerText = "Feil e-post eller passord");
+    });
+
+    // Logikk for utlogging
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      signOut(auth);
+    });
   </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="stylesheet.css">
-</head>
-<body>
-    
 </body>
 </html>
